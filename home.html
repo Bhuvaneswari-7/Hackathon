@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Event Connect — Home</title>
+<style>
+  :root{--primary:#e23744;--dark:#121212;--muted:#6b7280}
+  body{margin:0;font-family:Inter,Arial,sans-serif;background:#fff;color:var(--dark)}
+  nav{
+    display:flex;justify-content:center;gap:18px;padding:16px;background:#0f1724;color:#fff;align-items:center;
+    position:relative;
+  }
+  nav a{color:#fff;text-decoration:none;font-weight:600}
+  
+  /* Profile container */
+  #profileContainer {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    user-select: none;
+  }
+  #profileIcon {
+    font-size: 24px;
+    color: #fff;
+  }
+  
+  /* Profile popup card */
+  #profileCard {
+    display: none;
+    position: absolute;
+    top: 36px;
+    right: 0;
+    width: 220px;
+    background: #fff;
+    color: #121212;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    padding: 16px;
+    font-size: 14px;
+    z-index: 1000;
+  }
+  #profileCard div {
+    margin-bottom: 10px;
+  }
+  #profileCard #userEmail {
+    font-weight: 600;
+    word-break: break-word;
+  }
+  #logoutBtn {
+    width: 100%;
+    background: var(--primary);
+    border: none;
+    color: #fff;
+    padding: 8px 0;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  #logoutBtn:hover {
+    background: #b72c35;
+  }
+
+  .hero{background:linear-gradient(90deg,#ffecd2,#fcb69f);padding:60px 20px;text-align:center}
+  .hero h1{font-size:44px;margin:0;color:var(--dark);letter-spacing:-0.5px}
+  .hero p{margin:12px 0 0;color:var(--muted);font-size:18px}
+  .featured{display:flex;gap:16px;justify-content:center;margin-top:28px;flex-wrap:wrap}
+  .card{width:260px;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 12px 30px rgba(0,0,0,0.08);transform:translateY(0);transition:transform .28s}
+  .card:hover{transform:translateY(-8px)}
+  .poster{height:160px;background-size:cover;background-position:center}
+  .card-body{padding:14px;text-align:left}
+  .tag{display:inline-block;background:var(--primary);color:#fff;padding:6px 10px;border-radius:999px;font-weight:700;font-size:13px;margin-bottom:8px}
+  .small{color:var(--muted);font-size:13px}
+  .cta{display:inline-block;margin-top:10px;background:var(--primary);color:#fff;padding:8px 12px;border-radius:8px;text-decoration:none}
+  .bottom-cta{display:flex;justify-content:center;margin:28px 0}
+</style>
+</head>
+<body>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="events.html">Events</a>
+    <a href="My events-cart.html">My Events Cart</a>
+    <a href="share-event.html">Share</a>
+
+    <!-- Profile icon and popup -->
+    <div id="profileContainer" aria-label="User profile menu">
+      <div id="profileIcon" title="Profile">👤</div>
+      <div id="profileCard" role="dialog" aria-modal="true" aria-hidden="true">
+        <div id="userEmail">user@example.com</div>
+        <button id="logoutBtn">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>Welcome to Event Connect</h1>
+    <p>Discover events near you — music, tech, food, art & more. Pick a city, book, and enjoy.</p>
+
+    <div class="featured" aria-hidden="false">
+      <div class="card">
+        <div class="poster" style="background-image:url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=60')"></div>
+        <div class="card-body">
+          <div class="tag">Music</div>
+          <h3 style="margin:6px 0 0">Rock Night Live</h3>
+          <div class="small">Aug 30 • Club Stadium • ₹799</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="poster" style="background-image:url('https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=60')"></div>
+        <div class="card-body">
+          <div class="tag">Tech</div>
+          <h3 style="margin:6px 0 0">React Summit</h3>
+          <div class="small">Sep 10 • Innovation Hub • Free</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="poster" style="background-image:url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=60')"></div>
+        <div class="card-body">
+          <div class="tag">Food</div>
+          <h3 style="margin:6px 0 0">Street Food Carnival</h3>
+          <div class="small">Sep 5 • Central Park • ₹299</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-cta">
+      <a class="cta" href="events.html">Browse all events</a>
+    </div>
+  </section>
+
+  <!-- Firebase SDK scripts and auth check -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDo3wN-rm-8EV-NCF9Vj6xCMv_2tOq0GAo",
+      authDomain: "event-connect-99226.firebaseapp.com",
+      projectId: "event-connect-99226",
+      storageBucket: "event-connect-99226.firebasestorage.app",
+      messagingSenderId: "893560060694",
+      appId: "1:893560060694:web:007f2b735d01f71cbfae37",
+      measurementId: "G-EC23YBR929"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Elements
+    const profileContainer = document.getElementById('profileContainer');
+    const profileIcon = document.getElementById('profileIcon');
+    const profileCard = document.getElementById('profileCard');
+    const userEmail = document.getElementById('userEmail');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Check auth state on page load
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        // No user logged in, redirect to login page
+        window.location.href = "index.html";
+      } else {
+        // Show profile and user email
+        userEmail.textContent = user.email;
+        profileContainer.style.display = 'block';
+        console.log("User is logged in:", user.email);
+      }
+    });
+
+    // Toggle profile card visibility on profile icon click
+    profileIcon.addEventListener('click', e => {
+      e.stopPropagation();
+      if (profileCard.style.display === 'block') {
+        profileCard.style.display = 'none';
+        profileCard.setAttribute('aria-hidden', 'true');
+      } else {
+        profileCard.style.display = 'block';
+        profileCard.setAttribute('aria-hidden', 'false');
+      }
+    });
+
+    // Clicking outside profile card closes it
+    document.addEventListener('click', () => {
+      profileCard.style.display = 'none';
+      profileCard.setAttribute('aria-hidden', 'true');
+    });
+
+    // Logout button
+    logoutBtn.addEventListener('click', () => {
+      auth.signOut().then(() => {
+        window.location.href = "index.html";
+      }).catch(err => {
+        alert('Error logging out: ' + err.message);
+      });
+    });
+  </script>
+</body>
+</html>

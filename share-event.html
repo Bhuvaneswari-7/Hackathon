@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Share Event</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+  /* Animate a colorful gradient background */
+  @keyframes gradientBG {
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Inter', Arial, sans-serif;
+    background: linear-gradient(270deg, #6a11cb, #2575fc, #6a11cb, #f43b47, #2575fc);
+    background-size: 1000% 1000%;
+    animation: gradientBG 15s ease infinite;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 20px;
+  }
+  .card {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 30px 24px 36px;
+    border-radius: 16px;
+    width: 380px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    text-align: center;
+    position: relative;
+    backdrop-filter: blur(10px);
+  }
+  h1 {
+    margin: 0 0 16px;
+    font-size: 24px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(255 255 255 / 0.6);
+  }
+  select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: none;
+    margin-top: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    background: rgba(255,255,255,0.3);
+    color: #050520;
+    cursor: pointer;
+    box-shadow: inset 0 0 7px rgba(0,0,0,0.15);
+    transition: background 0.3s ease;
+  }
+  select:hover, select:focus {
+    background: rgba(255,255,255,0.4);
+    outline: none;
+  }
+  #details {
+    display: none;
+    margin-top: 24px;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+  #ename {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  #edesc {
+    color: #e6e6ea;
+    font-size: 14px;
+    margin-bottom: 16px;
+    user-select: none;
+  }
+  #eventImage {
+    width: 100%;
+    height: 160px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  }
+  .btn {
+    width: 100%;
+    padding: 12px 0;
+    border-radius: 12px;
+    border: none;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  }
+  .btn:active {
+    transform: scale(0.98);
+  }
+  .wh {
+    background: #25D366;
+    color: #fff;
+    box-shadow: 0 6px 18px #1ebe57cc;
+  }
+  .wh:hover {
+    background: #1ebe57;
+  }
+  .link {
+    background: linear-gradient(90deg, #ff7e5f, #feb47b);
+    color: #fff;
+    box-shadow: 0 6px 18px #fca56ccc;
+  }
+  .link:hover {
+    filter: brightness(1.1);
+  }
+  #preview {
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    color: #111;
+    padding: 12px;
+    border-radius: 10px;
+    word-break: break-word;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .back {
+    margin-top: 24px;
+    padding: 10px 18px;
+    border-radius: 12px;
+    border: none;
+    background: #51b7cc;
+    color: #050002;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 6px 18px #2575fcaa;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .back:hover {
+    background: #2575fc;
+    color: #710707;
+  }
+</style>
+</head>
+<body>
+  <div class="card" role="main" aria-label="Share Event Section">
+    <h1>Share Event</h1>
+    <select id="eventSelect" aria-label="Select event to share">
+      <option value="">-- Select event --</option>
+      <option value="Music Fest|City Hall|2025-09-15|https://images.unsplash.com/photo-1504805572947-34fad45aed93?auto=format&fit=crop&w=800&q=60">Music Fest — City Hall</option>
+      <option value="React Workshop|Tech Park|2025-08-20|https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=60">React Workshop — Tech Park</option>
+      <option value="Food Carnival|Central Park|2025-09-05|https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=800&q=60">Food Carnival — Central Park</option>
+      <option value="Jazz Night|Downtown Club|2025-09-22|https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=60">Jazz Night — Downtown Club</option>
+      <option value="Startup Pitch|Innovation Hub|2025-09-18|https://images.unsplash.com/photo-1542744173-05336fcc7ad4?auto=format&fit=crop&w=800&q=60">Startup Pitch — Innovation Hub</option>
+      <option value="Art Exhibition|City Gallery|2025-09-30|https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=800&q=60">Art Exhibition — City Gallery</option>
+    </select>
+
+    <div id="details" aria-live="polite" aria-atomic="true">
+      <img id="eventImage" src="" alt="Event Image" />
+      <strong id="ename"></strong>
+      <div id="edesc"></div>
+      <button class="btn wh" id="whBtn" aria-label="Share on WhatsApp">Share on WhatsApp</button>
+      <button class="btn link" id="linkBtn" aria-label="Generate shareable link">Generate Link</button>
+      <div id="preview" aria-live="polite"></div>
+    </div>
+
+    <button class="back" onclick="if(history.length>1) history.back(); else location.href='home.html'">⬅ Back</button>
+  </div>
+
+<script>
+  const select = document.getElementById('eventSelect');
+  const details = document.getElementById('details');
+  const ename = document.getElementById('ename');
+  const edesc = document.getElementById('edesc');
+  const preview = document.getElementById('preview');
+  const eventImage = document.getElementById('eventImage');
+
+  select.addEventListener('change', () => {
+    const v = select.value;
+    if (!v) {
+      details.style.display = 'none';
+      preview.textContent = '';
+      eventImage.src = '';
+      eventImage.alt = 'Event Image';
+      return;
+    }
+    const [title, venue, date, imgUrl] = v.split('|');
+    ename.textContent = title;
+    edesc.textContent = `${date} • ${venue}`;
+    eventImage.src = imgUrl;
+    eventImage.alt = `${title} event image`;
+    preview.textContent = '';
+    details.style.display = 'block';
+  });
+
+  document.getElementById('whBtn').addEventListener('click', () => {
+    const msg = `${ename.textContent} — ${edesc.textContent}. Book now at Event Connect!`;
+    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
+  });
+
+  document.getElementById('linkBtn').addEventListener('click', () => {
+    const link = `https://eventconnect.example/event?name=${encodeURIComponent(ename.textContent)}`;
+    preview.textContent = `Shareable link: ${link}`;
+  });
+</script>
+</body>
+</html>
